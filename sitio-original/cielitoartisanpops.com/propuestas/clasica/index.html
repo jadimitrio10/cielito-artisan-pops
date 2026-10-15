@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cielito Artisan Pops</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Hand-crafted high-end frozen treats made by hand in small batches in Wynwood, Miami. Over 46 flavors every week.">
+<link rel="icon" href="../img/logo-circle.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../img/hero-angel.webp">
+<style>
+/* Layout: same structure as the current site (overlapping gold seal logo, gold order bar, slider, centered gold titles framed by the pop icons), refined spacing and type. Single light theme by choice: the brand is white + gold. */
+:root{
+  color-scheme:light;
+  --gold:#C8AB37; --gold-2:#D8C472; --gold-dark:#9E8628; --gold-text:#8A7520;
+  --gold-foil:linear-gradient(120deg,#B39530 0%,#E3CF7E 30%,#C8AB37 52%,#E8D893 72%,#B39530 100%);
+  --ink:#4A4434; --soft:#7B735F; --cream:#FBF8EE; --line:#EEE5C8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:Quicksand,system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.wrap,.narrow{margin:0 auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px}
+.narrow{max-width:820px}
+h1,h2,h3{text-wrap:balance}
+.lead p{max-width:64ch;margin-inline:auto}
+a:focus-visible,button:focus-visible{outline:2.5px solid var(--gold-dark);outline-offset:3px;border-radius:6px}
+
+/* ---------- HEADER (same layout as today, refined) ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:#fff}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#fff;transition:box-shadow .3s}
+header.scrolled{box-shadow:0 10px 30px -20px rgba(80,65,10,.45)}
+.top{position:relative;height:96px;transition:height .35s}
+header.scrolled .top{height:70px}
+.top .wrap{height:100%;display:flex;align-items:center;justify-content:center;position:relative}
+.logo{position:absolute;left:28px;top:12px;width:150px;height:150px;border-radius:50%;z-index:3;filter:drop-shadow(0 12px 18px rgba(120,95,15,.35));transition:width .35s,height .35s,top .35s}
+.logo img{width:100%;height:100%}
+header.scrolled .logo{width:96px;height:96px;top:6px}
+nav.menu{display:flex;gap:44px}
+nav.menu a{font-weight:700;font-size:1.06rem;color:var(--gold);letter-spacing:.01em;position:relative;padding:6px 0;transition:color .2s}
+nav.menu a::after{content:"";position:absolute;left:50%;right:50%;bottom:0;height:2px;background:var(--gold);border-radius:2px;transition:left .3s,right .3s}
+nav.menu a:hover,nav.menu a.active{color:var(--gold-dark)}
+nav.menu a:hover::after,nav.menu a.active::after{left:0;right:0}
+.social{position:absolute;right:28px;display:flex;gap:12px}
+.social a{width:36px;height:36px;display:grid;place-items:center;color:var(--gold);border-radius:50%;transition:background .25s,color .25s}
+.social a:hover{background:var(--gold);color:#fff}
+.social svg{width:20px;height:20px}
+.burger{display:none;position:absolute;right:20px;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:26px;height:2.5px;border-radius:2px;background:var(--gold);margin:5px auto;transition:.3s}
+.orderbar{display:block;background:var(--gold-foil);background-size:200% 100%;color:#fff;text-align:center;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.95rem;padding:13px 16px;transition:background-position .8s}
+.orderbar:hover{background-position:100% 0}
+.orderbar span{display:inline-block;margin-left:10px;transition:transform .3s}
+.orderbar:hover span{transform:translateX(6px)}
+
+/* ---------- HERO SLIDER ---------- */
+.slider{position:relative;height:min(78vh,760px);min-height:440px;overflow:hidden;background:#eee}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease-out}
+.slide.on img{transform:scale(1)}
+.slider::after{content:"";position:absolute;inset:auto 0 0 0;height:30%;background:linear-gradient(transparent,rgba(0,0,0,.18));pointer-events:none}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:54px;height:54px;border-radius:50%;border:0;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;cursor:pointer;display:grid;place-items:center;transition:background .25s}
+.arrow:hover{background:rgba(255,255,255,.4)}
+.arrow svg{width:22px;height:22px}
+.arrow.prev{left:24px}.arrow.next{right:24px}
+.dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:3}
+.dots button{width:10px;height:10px;border-radius:999px;border:0;background:rgba(255,255,255,.55);cursor:pointer;transition:width .35s,background .35s}
+.dots button.on{width:30px;background:#fff}
+.gift{position:absolute;left:22px;bottom:18px;z-index:4;width:110px;transition:transform .35s;filter:drop-shadow(0 8px 14px rgba(0,0,0,.3))}
+.gift:hover{transform:rotate(-8deg) scale(1.06)}
+
+/* ---------- TITLES with the gold pop icons (kept from current site) ---------- */
+.title{display:flex;align-items:center;justify-content:center;gap:18px;font-weight:700;font-size:clamp(1.5rem,3vw,2.15rem);letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-align:center;line-height:1.2}
+.title img{width:44px;height:auto;flex:none}
+.title img.r{transform:scaleX(-1)}
+section{padding:96px 0}
+.lead{text-align:center;margin-top:26px}
+.lead p{margin-bottom:16px;color:var(--ink)}
+.lead p strong{color:var(--gold-text)}
+
+/* press logos */
+.press{padding:10px 0 80px}
+.logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:22px 54px;padding:34px 0;border-block:1px solid var(--line)}
+.logos img{height:46px;width:auto;mix-blend-mode:multiply;opacity:.85;transition:opacity .3s,transform .3s}
+.logos img:hover{opacity:1;transform:translateY(-3px)}
+.order-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:44px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;border-radius:999px;font-weight:700;font-size:1rem;letter-spacing:.02em;transition:transform .25s,box-shadow .25s,background .25s,color .25s}
+.btn.solid{background:var(--gold-foil);background-size:160% 100%;color:#fff;box-shadow:0 12px 26px -14px rgba(160,130,30,.9)}
+.btn.solid:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 18px 30px -14px rgba(160,130,30,.9)}
+.btn.outline{border:2px solid var(--gold);color:var(--gold-text)}
+.btn.outline:hover{background:var(--gold);color:#fff}
+.btn svg{width:18px;height:18px}
+
+/* fresh & delicious */
+.fresh{background:var(--cream)}
+.feature{margin:50px auto 0;max-width:1000px;border-radius:26px;overflow:hidden;box-shadow:0 40px 70px -45px rgba(90,70,10,.6);aspect-ratio:16/9}
+.feature img{width:100%;height:100%;object-fit:cover}
+.selection-label{margin-top:70px;text-align:center;font-weight:700;letter-spacing:.3em;color:var(--gold);font-size:.95rem}
+.selection{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:30px}
+.sel{display:grid;grid-template-columns:120px 1fr;gap:22px;align-items:center;background:#fff;border-radius:22px;padding:18px;border:1px solid var(--line);transition:transform .3s,box-shadow .3s}
+.sel:hover{transform:translateY(-4px);box-shadow:0 24px 40px -28px rgba(90,70,10,.55)}
+.sel img{width:120px;height:120px;border-radius:16px;object-fit:cover}
+.sel h3{font-size:1.12rem;color:var(--gold-text);margin-bottom:4px;letter-spacing:.02em}
+.sel p{font-size:.95rem;color:var(--soft);line-height:1.6}
+
+/* scratch banner */
+.scratch{position:relative;padding:0;min-height:420px;display:grid;place-items:center;text-align:center;color:#fff;background:url(../img/scratch.webp) center/cover}
+.scratch::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(60,45,10,.45),rgba(60,45,10,.55))}
+.scratch h2{position:relative;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:0 24px;line-height:1.2}
+.scratch h2 small{display:block;font-size:.95rem;letter-spacing:.3em;color:var(--gold-2);margin-bottom:14px}
+.pastry{padding:70px 0 40px}
+.badges{width:min(860px,calc(100% - 32px));margin:40px auto 0;mix-blend-mode:multiply}
+
+/* flavor videos */
+.flavors{padding:40px 0 100px}
+.vids{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.vid{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:600/330;box-shadow:0 26px 40px -30px rgba(0,0,0,.6)}
+.vid img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.vid:hover img{transform:scale(1.06)}
+.vid .play{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--gold)}
+.vid .play svg{width:18px;height:18px;margin-left:3px}
+.insta{display:flex;justify-content:center;margin-top:46px}
+
+/* ---------- FOOTER: white with gold lettering ---------- */
+footer{background:#fff;color:var(--gold-text);position:relative;padding:80px 0 0}
+footer::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--gold-foil)}
+.f-top{display:grid;grid-template-columns:220px repeat(3,1fr) 200px;gap:40px;align-items:start}
+.f-logo img{width:150px}
+.f-col h4{font-size:1.25rem;color:var(--gold);font-weight:700;margin-bottom:10px;letter-spacing:.02em}
+.f-col address{font-style:normal;line-height:1.8;font-size:.98rem}
+.f-col a.map{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-weight:700;font-size:.85rem;color:var(--gold);border-bottom:1.5px solid var(--gold-2);padding-bottom:1px}
+.f-col a.map svg{width:14px;height:14px}
+.f-col a:hover{color:var(--gold-dark)}
+.f-links{display:grid;gap:12px;font-weight:700}
+.f-links a{color:var(--gold);transition:color .2s,transform .2s}
+.f-links a:hover{color:var(--gold-dark)}
+.f-bottom{margin-top:60px;border-top:1px solid var(--line);padding:22px 0 26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:.88rem;color:#B5A672}
+.f-bottom .social{position:static}
+
+.rv{transition:transform .9s ease}
+.js .rv:not(.in){transform:translateY(18px)}
+.rv.in{transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{transform:none!important}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .f-top{grid-template-columns:1fr 1fr 1fr}
+  .f-logo{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .logo{width:104px;height:104px;left:16px;top:8px}
+  header.scrolled .logo{width:76px;height:76px;top:4px}
+  .top{height:80px}
+  nav.menu{position:fixed;top:122px;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:70px 28px 26px;box-shadow:0 30px 40px -30px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translateY(-10px);transition:.3s}
+  header.scrolled nav.menu{top:112px}
+  nav.menu.open{opacity:1;visibility:visible;transform:none}
+  nav.menu a{padding:14px 0;border-bottom:1px solid var(--line);text-align:center;font-size:1.15rem}
+  nav.menu a::after{display:none}
+  .social{display:none}
+  .burger{display:block}
+  .selection{grid-template-columns:1fr}
+  .vids{grid-template-columns:1fr}
+  .scratch{background-attachment:scroll}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .wrap,.narrow{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .orderbar{font-size:.8rem;letter-spacing:.1em;padding-left:110px;text-align:left}
+  .slider{height:62vh;min-height:380px}
+  .arrow{width:42px;height:42px}.arrow.prev{left:10px}.arrow.next{right:10px}
+  .gift{width:78px}
+  .title{gap:10px;font-size:1.35rem}
+  .title img{width:30px}
+  section{padding:70px 0}
+  .logos{gap:20px 30px}.logos img{height:44px}
+  .sel{grid-template-columns:90px 1fr;gap:14px}
+  .sel img{width:90px;height:90px}
+  .f-top{grid-template-columns:1fr;text-align:center}
+  .f-logo img{margin:0 auto}
+  .f-links{justify-items:center}
+  .f-bottom{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="top">
+    <div class="wrap">
+      <a class="logo" href="#" aria-label="Cielito Artisan Pops – home"><img src="../img/logo-circle.webp" alt="Cielito Artisan Pops" width="150" height="150"></a>
+      <nav class="menu" id="menu">
+        <a href="#" class="active">home</a>
+        <a href="/catering-corporate-events/">catering &amp; events</a>
+        <a href="/press/">press</a>
+        <a href="/about-us/">about us</a>
+        <a href="/locations/">locations</a>
+      </nav>
+      <div class="social">
+        <a href="https://www.instagram.com/cielitoartisanpops/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/cielitoartisanpops" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H7v4h2v9h4v-9h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
+      </div>
+      <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <a class="orderbar" href="https://cielito-local.square.site/">Online order – click here <span aria-hidden="true">→</span></a>
+</header>
+
+<main>
+<!-- HERO SLIDER -->
+<section class="slider" style="padding:0" aria-roledescription="carousel" aria-label="Cielito pops">
+  <div class="slide on"><img src="../img/hero-angel.webp" alt="Toasted meringue pop in front of golden wings" width="1200" height="750" fetchpriority="high"></div>
+  <div class="slide"><img src="../img/box.webp" alt="Box of chocolate-dipped pops with sprinkles" width="1200" height="684" loading="lazy"></div>
+  <div class="slide"><img src="../img/dip.webp" alt="Pop being dipped in white chocolate" width="1200" height="750" loading="lazy"></div>
+  <div class="slide"><img src="../img/dog.webp" alt="Dog enjoying a doggy pop" width="1200" height="750" loading="lazy"></div>
+  <div class="slide"><img src="../img/orange.webp" alt="Chocolate pop with candied orange" width="1200" height="684" loading="lazy"></div>
+  <button class="arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="arrow next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="dots"></div>
+  <a class="gift" href="https://squareup.com/gift/CYEH0HFJ43X9B/order" aria-label="Gift cards"><img src="../img/giftcard.webp" alt="Gift cards" width="193" height="193"></a>
+</section>
+
+<!-- A PIECE OF HEAVEN -->
+<section>
+  <div class="narrow">
+    <h1 class="title rv"><img src="../img/icon-pops.webp" alt="" width="72" height="57">A piece of heaven<img class="r" src="../img/icon-pops.webp" alt="" width="72" height="57"></h1>
+    <div class="lead rv">
+      <p><strong>Not your conventional ice cream shop.</strong></p>
+      <p>Cielito offers hand-crafted, high-end frozen treats that might have the shape of a popsicle, but they are something else. We make these pops by hand, in small batches, using locally sourced ingredients — and hope you enjoy them to the last drop.</p>
+      <p>We opened Cielito in 2017 so that we could share our passion for healthy, creative and tasty sweets with our community. Each pop is hand-crafted daily in our Wynwood store's back kitchen!</p>
+      <p>A family-friendly ambiance lends to the fun and artistic feel, with indoor and outdoor seating. It's also perfect for pet owners — dog-friendly pops are offered!</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS + ORDER -->
+<section class="press">
+  <div class="wrap">
+    <div class="logos rv">
+      <img src="../img/p-food.webp" alt="Food Network" loading="lazy" style="height:60px">
+      <img src="../img/p-traveler.webp" alt="Condé Nast Traveler" loading="lazy">
+      <img src="../img/p-newtimes.webp" alt="Miami New Times" loading="lazy">
+      <img src="../img/p-oceandrive.webp" alt="Ocean Drive" loading="lazy">
+      <img src="../img/p-univision.webp" alt="Univision" loading="lazy" style="height:56px">
+      <img src="../img/p-wsvn.webp" alt="WSVN 7News" loading="lazy" style="height:56px">
+      <img src="../img/p-godaddy.webp" alt="GoDaddy" loading="lazy">
+    </div>
+    <div class="order-btns rv">
+      <a class="btn solid" href="https://cielito-local.square.site/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Local Pick Up &amp; Delivery</a>
+      <a class="btn outline" href="https://cielito-nationwide.square.site/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Nationwide Shipping</a>
+    </div>
+  </div>
+</section>
+
+<!-- SIMPLY, FRESH AND DELICIOUS -->
+<section class="fresh">
+  <div class="wrap">
+    <h2 class="title rv"><img src="../img/icon-pops.webp" alt="" width="72" height="57" loading="lazy">Simply, fresh and delicious<img class="r" src="../img/icon-pops.webp" alt="" width="72" height="57" loading="lazy"></h2>
+    <div class="narrow lead rv"><p>With over 46 flavors every week, our inventive, rotating menu will awaken your taste buds and keep you coming back for more! As the seasons change, so do our flavors.</p></div>
+    <div class="feature rv"><img src="../img/watermelon.webp" alt="Fresh watermelon halves in the Wynwood kitchen" width="1121" height="775" loading="lazy"></div>
+
+    <p class="selection-label rv">SELECTION</p>
+    <div class="selection">
+      <article class="sel rv"><img src="../img/watermelon-sm.webp" alt="" width="800" height="553" loading="lazy"><div><h3>Fruit / Sorbet Pops</h3><p>Made with hand-picked fresh fruit in our Wynwood back kitchen — the freshest ingredients Florida has to offer.</p></div></article>
+      <article class="sel rv"><img src="../img/dip-sm.webp" alt="" width="800" height="500" loading="lazy"><div><h3>Ice Cream Pops</h3><p>Fresh milk, cream, egg yolks and cane sugar. We proudly pasteurize our family ice cream custard recipe in house.</p></div></article>
+      <article class="sel rv"><img src="../img/orange-sm.webp" alt="" width="800" height="456" loading="lazy"><div><h3>Vegan Ice Cream Pops</h3><p>Made with oat milk and cashew milk. Our vegan ice cream base is made completely in house.</p></div></article>
+      <article class="sel rv"><img src="../img/dog-sm.webp" alt="" width="800" height="500" loading="lazy" style="object-position:30% center"><div><h3>Doggy Pops</h3><p>The perfect frozen treat for your beloved pup. Made with fresh fruit and sweetened with honey.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- WE MAKE EVERYTHING FROM SCRATCH -->
+<section class="scratch">
+  <h2 class="rv"><small>Wynwood back kitchen</small>We make everything<br>from scratch</h2>
+</section>
+<section class="pastry">
+  <div class="narrow lead rv" style="margin-top:0">
+    <p>Our dedicated Pastry Team makes all our house-made pastries, ice cream add-ins, fillings and jams at our Wynwood back kitchen.</p>
+    <p><strong>At Cielito, we're approaching sweets in a new way — and we invite you to join us on our journey.</strong></p>
+  </div>
+  <img class="badges rv" src="../img/badges.webp" alt="Non-GMO, hormone-free dairy, milk from cows not treated with rBST, no artificial flavors or colors, no additives or preservatives, no high-fructose corn syrup" width="1920" height="355" loading="lazy">
+</section>
+
+<!-- FLAVOR VIDEOS + INSTAGRAM -->
+<section class="flavors">
+  <div class="wrap">
+    <div class="vids">
+      <a class="vid rv" href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/v-watermelon.webp" alt="Watermelon pop" width="600" height="330" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></span></a>
+      <a class="vid rv" href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/v-passion-fruit.webp" alt="Passion fruit pop filled with homemade brigadeiro" width="600" height="330" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></span></a>
+      <a class="vid rv" href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/v-strawberry.webp" alt="Strawberry pop" width="600" height="330" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></span></a>
+    </div>
+    <div class="insta rv"><a class="btn solid" href="https://www.instagram.com/cielitoartisanpops/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Follow us on Instagram</a></div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER: white background, gold letters -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-logo"><img src="../img/logo-circle.webp" alt="Cielito Artisan Pops" width="150" height="150" loading="lazy"></div>
+      <div class="f-col"><h4>Wynwood</h4><address>2750 NW 3rd Ave.<br>Miami, FL 33127<br><a href="tel:+13053977392">(305) 397-7392</a></address><a class="map" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+2750+NW+3rd+Ave+Miami"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/></svg>Directions</a></div>
+      <div class="f-col"><h4>Mizner Park</h4><address>327 Plaza Real<br>Boca Raton, FL 33432</address><a class="map" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+Mizner+Park+Boca+Raton"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/></svg>Directions</a></div>
+      <div class="f-col"><h4>The Aventura Mall</h4><address>19501 Biscayne Blvd<br>Aventura, FL 33180</address><a class="map" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+Aventura+Mall"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/></svg>Directions</a></div>
+      <nav class="f-links">
+        <a href="https://cielito-local.square.site/">Online Orders</a>
+        <a href="https://cielito-nationwide.square.site/">Nationwide Shipping</a>
+        <a href="https://squareup.com/gift/CYEH0HFJ43X9B/order">Gift Cards</a>
+        <a href="mailto:heaven@cielitoartisanpops.com">Contact Us</a>
+      </nav>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Cielito Artisan Pops · All Rights Reserved</span>
+      <div class="social">
+        <a href="https://www.instagram.com/cielitoartisanpops/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/cielitoartisanpops" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H7v4h2v9h4v-9h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+// header
+const hdr=document.getElementById('hdr'),menu=document.getElementById('menu');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40),{passive:true});
+document.getElementById('burger').onclick=()=>menu.classList.toggle('open');
+// slider
+const slides=[...document.querySelectorAll('.slide')],dots=document.querySelector('.dots');let i=0,t;
+slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','Slide '+(n+1));b.onclick=()=>go(n);dots.appendChild(b)});
+function go(n){slides[i].classList.remove('on');dots.children[i].classList.remove('on');i=(n+slides.length)%slides.length;slides[i].classList.add('on');dots.children[i].classList.add('on');clearInterval(t);t=setInterval(()=>go(i+1),5500)}
+document.querySelector('.prev').onclick=()=>go(i-1);document.querySelector('.next').onclick=()=>go(i+1);go(0);
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
