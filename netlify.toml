@@ -1,4 +1,4 @@
-# Netlify config for a static single-page site (no build step)
+# Rama sitio-original: publica la copia estática del sitio WordPress
 [build]
-  publish = "."
+  publish = "sitio-original/cielitoartisanpops.com"
   command = ""
