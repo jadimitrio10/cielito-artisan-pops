@@ -104,10 +104,10 @@ nav.menu a:hover,nav.menu a[aria-current]{color:var(--gold-deep);border-color:va
 .wall .intro .note{font-size:.95rem;opacity:.85}
 .windows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
 .window figcaption{margin-top:12px;font-weight:700;color:var(--mint-deep)}
-.frame{background:var(--pink);padding:10px;border-radius:4px;display:grid;grid-template-columns:1fr 1fr;gap:10px;box-shadow:0 18px 30px -24px rgba(40,70,60,.6)}
+.frame{background:var(--pink);padding:12px;border-radius:4px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;box-shadow:0 18px 30px -24px rgba(40,70,60,.6)}
 .pane{min-width:0;overflow-wrap:break-word;hyphens:auto;background:#E9F7F3;aspect-ratio:1;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;border-radius:2px;overflow:hidden;position:relative}
-.pane b{font-size:1rem;line-height:1.25;color:var(--ink)}
-.pane span{font-size:.82rem;color:#5E6B66;line-height:1.35;margin-top:4px}
+.pane b{font-size:1.15rem;line-height:1.25;color:var(--ink)}
+.pane span{font-size:.9rem;color:#5E6B66;line-height:1.35;margin-top:4px}
 .pane.ph{padding:0}
 .pane.ph img{width:100%;height:100%;object-fit:cover}
 .pane .stick{position:absolute;top:12px;left:12px;width:20px;height:44px;border-radius:10px 10px 4px 4px;background:var(--c,#f4a0a8)}
@@ -214,7 +214,7 @@ footer a:hover{color:var(--ink)}
   .windows{grid-template-columns:1fr;gap:30px}
   .wall .intro{grid-template-columns:1fr}
   .wall .intro h2{grid-row:auto}
-  .frame{gap:8px;padding:8px}
+  .frame{grid-template-columns:1fr 1fr;gap:8px;padding:8px}
   .pane{aspect-ratio:auto;min-height:140px;padding:10px}
   .pane .stick{top:9px;left:9px;width:16px;height:34px}.pane .stick::after{left:5px;top:31px;width:6px;height:10px}
   .pane b{font-size:.95rem}.pane span{font-size:.8rem}
@@ -289,37 +289,18 @@ footer a:hover{color:var(--ink)}
   <div class="wrap">
     <div class="intro">
       <h2>Pick yours from the wall</h2>
-      <p>The menu follows the seasons, with more than 46 flavors every week. These are a few regulars you might find on the wall at the shop.</p>
-      <p class="note">Ask at the counter for today's flavors.</p>
+      <p>Our menu follows the seasons, with more than 46 flavors every week. See what's on the wall today and order for pick-up or delivery.</p>
+      <p><a class="btn solid" href="https://cielito-local.square.site/">See today's flavors</a></p>
     </div>
-    <div class="windows">
-      <figure class="window">
-        <div class="frame">
-          <div class="pane"><i class="stick" style="--c:#E8556B"></i><b>Strawberry</b><span>Fresh fruit</span></div>
-          <div class="pane"><i class="stick" style="--c:#F07A7A"></i><b>Watermelon</b><span>Fresh fruit</span></div>
-          <div class="pane"><i class="stick" style="--c:#C9567E"></i><b>Raspberry kiwi</b><span>Fresh fruit</span></div>
-          <div class="pane"><i class="stick" style="--c:#F2C14E"></i><b>Pineapple jalapeño</b><span>With Tajín</span></div>
-        </div>
-        <figcaption>Fruit &amp; sorbet</figcaption>
-      </figure>
-      <figure class="window">
-        <div class="frame">
-          <div class="pane"><i class="stick" style="--c:#F6D35B"></i><b>Passion fruit</b><span>Filled with homemade brigadeiro</span></div>
-          <div class="pane"><i class="stick" style="--c:#E39A8F"></i><b>Guava &amp; cheese</b><span>Guayaba y queso</span></div>
-          <div class="pane"><i class="stick" style="--c:#F4EEDF"></i><b>Coconut</b><span>Ice cream</span></div>
-          <div class="pane ph"><img src="../img/dip-sm.webp" alt="A pop being dipped in white chocolate" width="800" height="500" loading="lazy" style="object-position:60% center"></div>
-        </div>
-        <figcaption>Ice cream</figcaption>
-      </figure>
-      <figure class="window">
-        <div class="frame">
-          <div class="pane"><i class="stick" style="--c:#8B5A3C"></i><b>Vegan pops</b><span>Oat and cashew milk base</span></div>
-          <div class="pane ph"><img src="../img/orange-sm.webp" alt="Chocolate pop with candied orange" width="800" height="456" loading="lazy"></div>
-          <div class="pane ph"><img src="../img/dog-sm.webp" alt="A dog licking a doggy pop" width="800" height="500" loading="lazy" style="object-position:30% center"></div>
-          <div class="pane"><i class="stick" style="--c:#F3B6A0"></i><b>Doggy pops</b><span>Fruit and honey, for your pup</span></div>
-        </div>
-        <figcaption>Vegan, and for the dog</figcaption>
-      </figure>
+    <div class="frame">
+      <div class="pane ph"><img src="../img/watermelon-sm.webp" alt="Fresh watermelon" width="800" height="553" loading="lazy"></div>
+      <div class="pane"><i class="stick" style="--c:#E8556B"></i><b>Fruit &amp; sorbet</b><span>Hand-picked fresh fruit, the best Florida has to offer.</span></div>
+      <div class="pane ph"><img src="../img/dip-sm.webp" alt="A pop being dipped in white chocolate" width="800" height="500" loading="lazy" style="object-position:60% center"></div>
+      <div class="pane"><i class="stick" style="--c:#F4E6C8"></i><b>Ice cream</b><span>Fresh milk, cream, egg yolks and cane sugar. Our family custard.</span></div>
+      <div class="pane"><i class="stick" style="--c:#8B5A3C"></i><b>Vegan</b><span>Oat and cashew milk base, made completely in house.</span></div>
+      <div class="pane ph"><img src="../img/orange-sm.webp" alt="Chocolate pop with candied orange" width="800" height="456" loading="lazy"></div>
+      <div class="pane"><i class="stick" style="--c:#F3B6A0"></i><b>Doggy pops</b><span>Fresh fruit sweetened with honey, for your pup.</span></div>
+      <div class="pane ph"><img src="../img/dog-sm.webp" alt="A dog licking a doggy pop" width="800" height="500" loading="lazy" style="object-position:30% center"></div>
     </div>
   </div>
 </section>
@@ -330,12 +311,6 @@ footer a:hover{color:var(--ink)}
   <div class="txt">
     <h2>Everything is made from scratch, in our own kitchen</h2>
     <p>Our pastry team makes the ice cream bases, add-ins, fillings and jams in the back kitchen of the Wynwood shop. You can watch them work through the big window.</p>
-    <dl class="kinds">
-      <div><dt>Fruit &amp; sorbet</dt><dd>Hand-picked fresh fruit, the best Florida has to offer.</dd></div>
-      <div><dt>Ice cream</dt><dd>Fresh milk, cream, egg yolks and cane sugar. Our family custard, pasteurized in house.</dd></div>
-      <div><dt>Vegan</dt><dd>Oat and cashew milk, made completely in house.</dd></div>
-      <div><dt>Doggy pops</dt><dd>Fresh fruit sweetened with honey.</dd></div>
-    </dl>
     <img class="badges" src="../img/badges.webp" alt="Non-GMO, hormone-free dairy, no artificial flavors or colors, no additives or preservatives, no high-fructose corn syrup" width="1920" height="355" loading="lazy">
   </div>
 </section>
