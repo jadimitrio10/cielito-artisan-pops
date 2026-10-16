@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cielito Artisan Pops</title>
+<meta name="description" content="Hand-crafted artisan pops made in small batches in Wynwood, Miami. Shops in Wynwood, Mizner Park and Aventura Mall, local delivery and nationwide shipping.">
+<link rel="icon" href="../img/logo-circle.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../img/hero-angel.webp">
+<style>
+/*
+  Direction: quiet and serious. The current site's identity (gold seal, gold order bar, Quicksand,
+  gold pill buttons, lowercase menu) on a lot of white. Gold only in fine details; mint as one soft
+  band; photos with square corners. Text left-aligned. No ornaments, counters or scroll effects.
+  Type scale (Quicksand): 14 / 16 / 18 / 24 / 36 / 52. Weights 400 / 500 / 600.
+*/
+:root{
+  color-scheme:light;
+  --paper:#FFFFFF;
+  --ink:#2E2A22;
+  --muted:#6F6857;
+  --gold:#C8AB37;
+  --gold-deep:#8A7520;
+  --mint:#E4F3EF;
+  --rule:#ECE5D2;
+  --gut:max(32px,env(safe-area-inset-left,0px));
+  --gut-r:max(32px,env(safe-area-inset-right,0px));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:Quicksand,"Trebuchet MS",system-ui,sans-serif;font-size:17px;line-height:1.75;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-weight:500;letter-spacing:-.015em;text-wrap:balance;line-height:1.15}
+h2{font-size:clamp(1.8rem,3vw,2.25rem)}
+p{max-width:34em}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gut-r)}
+.muted{color:var(--muted)}
+.link{color:var(--gold-deep);font-weight:600;border-bottom:1px solid var(--gold);padding-bottom:2px;transition:color .2s}
+.link:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:999px;font-weight:600;font-size:.98rem;letter-spacing:.01em;transition:background .2s,color .2s}
+.btn.solid{background:var(--gold);color:#fff}
+.btn.solid:hover{background:var(--gold-deep)}
+.btn.line{border:1.5px solid var(--gold);color:var(--gold-deep);padding:12.5px 26.5px}
+.btn.line:hover{background:var(--gold);color:#fff}
+section{padding-block:120px}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:84px;gap:32px}
+.nav .seal img{width:62px;height:62px}
+nav.menu{display:flex;gap:36px}
+nav.menu a{font-weight:500;color:var(--ink);font-size:1rem;padding:4px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+nav.menu a:hover,nav.menu a[aria-current]{color:var(--gold-deep);border-color:var(--gold)}
+.social{display:flex;gap:18px;color:var(--gold-deep)}
+.social a{display:grid;place-items:center;transition:color .2s}
+.social a:hover{color:var(--ink)}
+.social svg{width:18px;height:18px}
+.burger{display:none;background:none;border:0;width:40px;height:40px;cursor:pointer}
+.burger span{display:block;width:22px;height:1.5px;background:var(--ink);margin:6px auto}
+.bar{display:block;background:var(--gold);color:#fff;text-align:center;font-size:.85rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;transition:background .2s}
+.bar:hover{background:var(--gold-deep)}
+
+/* hero */
+.hero{padding-block:72px 96px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:72px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,4.4vw,3.3rem)}
+.hero p{margin-top:22px;font-size:1.08rem}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.hero .gift{display:inline-flex;align-items:center;gap:12px;margin-top:40px;font-weight:600;color:var(--gold-deep);font-size:.95rem}
+.hero .gift img{width:46px}
+.hero .gift:hover{color:var(--ink)}
+.hero figure{position:relative}
+.hero figure img{width:100%;aspect-ratio:5/4;object-fit:cover;object-position:45% 40%}
+
+/* press */
+.press{padding-block:0}
+.press .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px 36px;flex-wrap:wrap;padding-block:30px;border-block:1px solid var(--rule)}
+.press img{height:30px;width:auto;mix-blend-mode:multiply;opacity:.8}
+.press img.sq{height:40px}
+
+/* intro */
+.intro .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:72px}
+.intro .body p+p{margin-top:16px}
+
+/* selection */
+.selection{padding-top:0}
+.sel-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.sel-head p{margin-top:12px}
+.sel-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.sel img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.sel h3{font-size:1.15rem;margin-top:18px}
+.sel p{margin-top:6px;font-size:.95rem;color:var(--muted);line-height:1.6}
+
+/* kitchen: full-width image, text below in two columns */
+.kitchen{padding-block:0}
+.kitchen .ph img{width:100%;height:min(62vh,560px);object-fit:cover}
+.kitchen .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:72px;padding-block:64px 0}
+.kitchen .badges{grid-column:2;margin-top:28px;width:100%;max-width:620px;mix-blend-mode:multiply;opacity:.9}
+
+/* family */
+.family .wrap{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:72px;align-items:center}
+.family .pics{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.family .pics img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.family blockquote{font-size:1.35rem;line-height:1.55;font-weight:500;margin-top:22px;max-width:28em}
+.family cite{display:block;margin-top:14px;font-style:normal;color:var(--muted);font-size:.95rem}
+.family .link{display:inline-block;margin-top:28px}
+
+/* shops */
+.shops{padding-top:0}
+.shops h2{margin-bottom:44px}
+.shop-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.shop img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.shop h3{font-size:1.2rem;margin-top:18px}
+.shop address{font-style:normal;color:var(--muted);margin:6px 0 14px;font-size:.97rem}
+
+/* catering: one soft mint band */
+.events{background:var(--mint)}
+.events .wrap{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:72px;align-items:center}
+.events img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.events p{margin-top:18px}
+.events .acts{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:32px}
+.events .clients{margin-top:28px;font-size:.92rem;color:var(--muted)}
+
+/* instagram */
+.ig{padding-bottom:0}
+.ig .head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.ig .head h2{font-size:1.5rem}
+.strip{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.strip a{aspect-ratio:1;overflow:hidden}
+.strip img{width:100%;height:100%;object-fit:cover;transition:opacity .2s}
+.strip a:hover img{opacity:.85}
+
+/* footer: white, gold lettering */
+footer{color:var(--gold-deep);padding-block:96px 0}
+.f-grid{display:grid;grid-template-columns:minmax(0,3fr) repeat(3,minmax(0,2fr)) minmax(0,2fr);gap:36px}
+.f-grid .seal img{width:96px}
+.f-grid .seal p{margin-top:16px;font-size:.95rem;color:var(--gold-deep)}
+footer h4{font-weight:600;font-size:1rem;color:var(--gold);margin-bottom:8px}
+footer address{font-style:normal;font-size:.95rem;line-height:1.8}
+footer .dir{display:inline-block;margin-top:8px;font-size:.9rem;font-weight:600;border-bottom:1px solid var(--gold)}
+footer a:hover{color:var(--ink)}
+.f-links{display:grid;gap:8px;font-size:.95rem;font-weight:600}
+.f-base{margin-top:72px;padding-block:22px 28px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:.88rem}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+@media (max-width:1060px){
+  .f-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .f-grid .seal{grid-column:1/-1}
+  .sel-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  section{padding-block:88px}
+  nav.menu{position:fixed;left:0;right:0;top:calc(84px + 38px + env(safe-area-inset-top,0px));flex-direction:column;gap:0;background:var(--paper);padding:12px var(--gut-r) 24px var(--gut);border-bottom:1px solid var(--rule);visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}
+  nav.menu.open{visibility:visible;opacity:1}
+  nav.menu a{padding:14px 0;border-bottom:1px solid var(--rule)}
+  .nav .social{display:none}
+  .burger{display:block}
+  .hero .wrap,.intro .wrap,.kitchen .wrap,.family .wrap,.events .wrap{grid-template-columns:1fr;gap:36px}
+  .hero{padding-block:40px 72px}
+  .hero figure{order:-1}
+  .kitchen .badges{grid-column:auto}
+  .kitchen .ph img{height:360px}
+  .shop-grid{grid-template-columns:1fr 1fr}
+  .strip{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:600px){
+  :root{--gut:max(16px,env(safe-area-inset-left,0px));--gut-r:max(16px,env(safe-area-inset-right,0px))}
+  body{font-size:16px}
+  .bar{font-size:.78rem;letter-spacing:.1em}
+  .hero .acts .btn{flex:1 1 100%}
+  .press .wrap{justify-content:center}
+  .press img{height:24px}.press img.sq{height:32px}
+  .sel-grid{gap:22px 16px}
+  .sel img{aspect-ratio:1}
+  .shop-grid,.f-grid{grid-template-columns:1fr}
+  .kitchen .ph img{height:280px}
+  .f-base{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="seal" href="#" aria-label="Cielito Artisan Pops home"><img src="../img/logo-circle.webp" alt="Cielito Artisan Pops" width="62" height="62"></a>
+    <nav class="menu" id="menu">
+      <a href="#" aria-current="page">home</a>
+      <a href="/catering-corporate-events/">catering &amp; events</a>
+      <a href="/press/">press</a>
+      <a href="/about-us/">about us</a>
+      <a href="/locations/">locations</a>
+    </nav>
+    <div class="social">
+      <a href="https://www.instagram.com/cielitoartisanpops/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      <a href="https://www.facebook.com/cielitoartisanpops" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H7v4h2v9h4v-9h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+  <a class="bar" href="https://cielito-local.square.site/">Online order – click here</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>A piece of heaven, made by hand in Wynwood.</h1>
+      <p class="muted">Not your conventional ice cream shop. High-end frozen treats made in small batches with locally sourced ingredients, every day in our back kitchen.</p>
+      <div class="acts">
+        <a class="btn solid" href="https://cielito-local.square.site/">Local pick up &amp; delivery</a>
+        <a class="btn line" href="https://cielito-nationwide.square.site/">Nationwide shipping</a>
+      </div>
+      <a class="gift" href="https://squareup.com/gift/CYEH0HFJ43X9B/order"><img src="../img/giftcard.webp" alt="" width="193" height="193">Give a Cielito gift card</a>
+    </div>
+    <figure><img src="../img/hero-angel.webp" alt="A toasted meringue pop held up in front of golden wings" width="1200" height="750" fetchpriority="high"></figure>
+  </div>
+</section>
+
+<section class="press" aria-label="Featured in">
+  <div class="wrap">
+    <img class="sq" src="../img/p-food.webp" alt="Food Network" width="165" height="166" loading="lazy">
+    <img src="../img/p-traveler.webp" alt="Condé Nast Traveler" width="219" height="86" loading="lazy">
+    <img src="../img/p-newtimes.webp" alt="Miami New Times" width="244" height="72" loading="lazy">
+    <img src="../img/p-oceandrive.webp" alt="Ocean Drive" width="266" height="87" loading="lazy">
+    <img class="sq" src="../img/p-univision.webp" alt="Univision" width="197" height="163" loading="lazy">
+    <img class="sq" src="../img/p-wsvn.webp" alt="WSVN 7News" width="163" height="177" loading="lazy">
+    <img src="../img/p-godaddy.webp" alt="GoDaddy" width="288" height="76" loading="lazy">
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <h2>Simply fresh and delicious.</h2>
+    <div class="body">
+      <p>We opened Cielito in 2017 to share our passion for healthy, creative and tasty sweets with our community. Every pop is hand-crafted daily in our Wynwood back kitchen.</p>
+      <p class="muted">With more than 46 flavors every week, the menu changes with the seasons. You'll always find today's selection in our <a class="link" href="https://cielito-local.square.site/">online shop</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="selection">
+  <div class="wrap">
+    <div class="sel-grid">
+      <article class="sel"><img src="../img/watermelon-sm.webp" alt="Fresh watermelon" width="800" height="553" loading="lazy"><h3>Fruit &amp; sorbet</h3><p>Hand-picked fresh fruit, the best Florida has to offer.</p></article>
+      <article class="sel"><img src="../img/dip-sm.webp" alt="A pop dipped in white chocolate" width="800" height="500" loading="lazy" style="object-position:60% center"><h3>Ice cream</h3><p>Fresh milk, cream, egg yolks and cane sugar. Our family custard, pasteurized in house.</p></article>
+      <article class="sel"><img src="../img/orange-sm.webp" alt="Chocolate pop with candied orange" width="800" height="456" loading="lazy"><h3>Vegan</h3><p>An oat and cashew milk base, made completely in house.</p></article>
+      <article class="sel"><img src="../img/dog-sm.webp" alt="A dog licking a doggy pop" width="800" height="500" loading="lazy" style="object-position:28% center"><h3>Doggy pops</h3><p>Fresh fruit sweetened with honey, for your pup.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="kitchen">
+  <div class="ph"><img src="../img/box.webp" alt="A box of chocolate dipped pops with sprinkles" width="1200" height="684" loading="lazy"></div>
+  <div class="wrap">
+    <h2>We make everything from scratch.</h2>
+    <div>
+      <p>Our pastry team makes the pastries, ice cream add-ins, fillings and jams in our Wynwood back kitchen. At Cielito we're approaching sweets in a new way, and we invite you to join us.</p>
+    </div>
+    <img class="badges" src="../img/badges.webp" alt="Non-GMO, hormone-free dairy, no artificial flavors or colors, no additives or preservatives, no high-fructose corn syrup" width="1920" height="355" loading="lazy">
+  </div>
+</section>
+
+<section class="family">
+  <div class="wrap">
+    <div class="pics">
+      <img src="../img/sindy-sm.webp" alt="Sindy holding a pink pop" width="800" height="415" loading="lazy" style="object-position:30% center">
+      <img src="../img/ivan-sm.webp" alt="Ivan at the Wynwood shop" width="800" height="415" loading="lazy" style="object-position:36% center">
+    </div>
+    <div>
+      <h2>A family business.</h2>
+      <blockquote>“We are a family run business, and we thank you for trying our treats and helping our dream come true.”</blockquote>
+      <cite>Sindy &amp; Ivan</cite>
+      <a class="link" href="/about-us/">Our story</a>
+    </div>
+  </div>
+</section>
+
+<section class="shops" id="shops">
+  <div class="wrap">
+    <h2>Our shops</h2>
+    <div class="shop-grid">
+      <article class="shop"><img src="../img/wynwood-sm.webp" alt="The Wynwood Building" width="800" height="415" loading="lazy"><h3>Wynwood</h3><address>2750 NW 3rd Ave, Miami, FL 33127<br>(305) 397-7392</address><a class="link" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+2750+NW+3rd+Ave+Miami">Directions</a></article>
+      <article class="shop"><img src="../img/boca-sm.webp" alt="Mizner Park, Boca Raton" width="800" height="415" loading="lazy"><h3>Mizner Park</h3><address>327 Plaza Real, Boca Raton, FL 33432</address><a class="link" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+Mizner+Park+Boca+Raton">Directions</a></article>
+      <article class="shop"><img src="../img/aventura-sm.webp" alt="Aventura Mall" width="800" height="415" loading="lazy"><h3>The Aventura Mall</h3><address>19501 Biscayne Blvd, Aventura, FL 33180</address><a class="link" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+Aventura+Mall">Directions</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="events">
+  <div class="wrap">
+    <img src="../img/tray.webp" alt="Trays of Cielito pops for an event" width="1600" height="1204" loading="lazy">
+    <div>
+      <h2>Catering &amp; events</h2>
+      <p>We would be delighted to be part of your event, corporate or personal. Carts and servers are available, and pops can be branded with custom sticks and stickers.</p>
+      <div class="acts">
+        <a class="btn solid" href="/catering-corporate-events/">Request a quote</a>
+        <a class="link" href="mailto:heaven@cielitoartisanpops.com">heaven@cielitoartisanpops.com</a>
+      </div>
+      <p class="clients">Google, HBO, Moncler, Burberry, BMW and Nikki Beach have served Cielito at their events.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ig" aria-label="Instagram">
+  <div class="wrap head">
+    <h2>@cielitoartisanpops</h2>
+    <a class="link" href="https://www.instagram.com/cielitoartisanpops/">Follow us on Instagram</a>
+  </div>
+  <div class="strip">
+    <a href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/wings-sm.webp" alt="Pop in front of the golden wings" width="800" height="500" loading="lazy"></a>
+    <a href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/cucumber-sm.webp" alt="Fruit pop" width="800" height="312" loading="lazy"></a>
+    <a href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/pop-wall-sm.webp" alt="The pop wall in Wynwood" width="800" height="500" loading="lazy"></a>
+    <a href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/counter-sm.webp" alt="The counter at the shop" width="800" height="500" loading="lazy"></a>
+    <a href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/watermelon-sm.webp" alt="Watermelon" width="800" height="553" loading="lazy"></a>
+    <a href="https://www.instagram.com/cielitoartisanpops/"><img src="../img/plants-sm.webp" alt="Plants inside the shop" width="800" height="456" loading="lazy"></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="seal"><img src="../img/logo-circle.webp" alt="Cielito Artisan Pops" width="96" height="96" loading="lazy"><p>Hand-crafted in Wynwood since 2017.</p></div>
+      <div><h4>Wynwood</h4><address>2750 NW 3rd Ave<br>Miami, FL 33127<br><a href="tel:+13053977392">(305) 397-7392</a></address><a class="dir" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+2750+NW+3rd+Ave+Miami">Directions</a></div>
+      <div><h4>Mizner Park</h4><address>327 Plaza Real<br>Boca Raton, FL 33432</address><a class="dir" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+Mizner+Park+Boca+Raton">Directions</a></div>
+      <div><h4>The Aventura Mall</h4><address>19501 Biscayne Blvd<br>Aventura, FL 33180</address><a class="dir" href="https://www.google.com/maps/search/?api=1&query=Cielito+Artisan+Pops+Aventura+Mall">Directions</a></div>
+      <nav class="f-links" aria-label="Footer">
+        <a href="https://cielito-local.square.site/">Online orders</a>
+        <a href="https://cielito-nationwide.square.site/">Nationwide shipping</a>
+        <a href="https://squareup.com/gift/CYEH0HFJ43X9B/order">Gift cards</a>
+        <a href="mailto:heaven@cielitoartisanpops.com">Contact us</a>
+      </nav>
+    </div>
+    <div class="f-base">
+      <span>© 2026 Cielito Artisan Pops. All rights reserved.</span>
+      <div class="social">
+        <a href="https://www.instagram.com/cielitoartisanpops/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.facebook.com/cielitoartisanpops" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H7v4h2v9h4v-9h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const menu=document.getElementById('menu'),burger=document.getElementById('burger');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+</script>
+</body>
+</html>
