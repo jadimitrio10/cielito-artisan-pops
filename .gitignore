@@ -6,3 +6,4 @@ Thumbs.db
 # Node (not used, but just in case)
 node_modules/
 .netlify/
+.taste-skill/
