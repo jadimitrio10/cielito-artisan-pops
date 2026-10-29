@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor · Cielito Artisan Pops</title>
+<style>
+:root{--gold:#C8AB37;--ink:#2E2A22;--bar:#1F1D18;--panel:#2A2722;--line:#3B372F;--text:#F2EFE6;--muted:#B4AC97}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Quicksand,"Segoe UI",system-ui,sans-serif;background:#141311;color:var(--text);display:grid;grid-template-rows:56px 1fr;grid-template-columns:1fr 300px;height:100vh;overflow:hidden}
+header{grid-column:1/-1;background:var(--bar);display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--line)}
+header .brand{display:flex;align-items:center;gap:10px;font-weight:700;margin-right:12px}
+header .brand img{width:34px;height:34px}
+.pages{display:flex;gap:4px;background:#000;border-radius:999px;padding:4px}
+.pages button{background:transparent;border:0;color:var(--muted);font:600 13px Quicksand,sans-serif;padding:7px 12px;border-radius:999px;cursor:pointer}
+.pages button.on{background:var(--gold);color:var(--ink)}
+.spacer{flex:1}
+.tool{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line);color:var(--text);font:600 13px Quicksand,sans-serif;padding:8px 12px;border-radius:8px;cursor:pointer}
+.tool:hover{border-color:var(--gold)}
+.tool.primary{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.tool.on{background:#3B372F;border-color:var(--gold)}
+.tool svg{width:16px;height:16px}
+.stage{position:relative;background:#141311;overflow:hidden}
+.stage iframe{width:100%;height:100%;border:0;background:#fff}
+.devices{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:4px;background:#000c;backdrop-filter:blur(6px);border-radius:999px;padding:4px}
+.devices button{background:transparent;border:0;color:var(--muted);font:600 12px Quicksand,sans-serif;padding:6px 12px;border-radius:999px;cursor:pointer}
+.devices button.on{background:var(--gold);color:var(--ink)}
+aside{background:var(--panel);border-left:1px solid var(--line);overflow:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+aside h2{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hint{font-size:13px;line-height:1.5;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;color:var(--muted);font-weight:600}
+.field input[type=text],.field textarea,.field select{background:#1A1814;border:1px solid var(--line);color:var(--text);font:14px Quicksand,sans-serif;padding:8px 10px;border-radius:6px;width:100%}
+.field textarea{min-height:90px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field input[type=color]{width:100%;height:36px;border:1px solid var(--line);border-radius:6px;background:#1A1814;padding:2px}
+.field input[type=range]{width:100%;accent-color:var(--gold)}
+.sel-name{font-size:13px;font-weight:700;color:var(--gold);word-break:break-all}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btns .tool{justify-content:center}
+.log{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.assets{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.assets img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;cursor:pointer;border:2px solid transparent;background:#1A1814}
+.assets img:hover{border-color:var(--gold)}
+.hidden{display:none!important}
+.toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-weight:700;font-size:13px;padding:8px 14px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+@media (max-width:900px){body{grid-template-columns:1fr}aside{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="../wp-content/uploads/2024/10/9-3.png" alt="">Editor</div>
+  <div class="pages" id="pages">
+    <button data-page="/index.html" class="on">home</button>
+    <button data-page="/catering-corporate-events/index.html">catering</button>
+    <button data-page="/press/index.html">press</button>
+    <button data-page="/about-us/index.html">about us</button>
+    <button data-page="/locations/index.html">locations</button>
+    <button data-page="/contact/index.html">contact</button>
+  </div>
+  <div class="spacer"></div>
+  <button class="tool on" id="t-select" title="Seleccionar (clic en la página)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3l7 17 2-7 7-2z"/></svg>Seleccionar</button>
+  <button class="tool" id="t-move" title="Mover arrastrando"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M8 6l4-4 4 4M8 18l4 4 4-4M6 8l-4 4 4 4M18 8l4 4-4 4"/></svg>Mover</button>
+  <button class="tool" id="t-undo" title="Deshacer (Ctrl+Z)">↶ Deshacer</button>
+  <button class="tool" id="t-reset" title="Volver al original">Original</button>
+  <button class="tool primary" id="t-save" title="Descargar la página editada">⬇ Descargar HTML</button>
+</header>
+
+<div class="stage">
+  <iframe id="frame" src="/index.html" title="Página"></iframe>
+  <div class="devices">
+    <button data-w="100%" class="on">Escritorio</button>
+    <button data-w="820px">Tablet</button>
+    <button data-w="390px">Celular</button>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<aside>
+  <div>
+    <h2>Cómo editar</h2>
+    <p class="hint">Haz <b>clic</b> en cualquier texto, foto o botón de la página para seleccionarlo. <b>Doble clic</b> en un texto para escribir encima. Con "Mover" activo, arrastra el bloque. Al terminar, <b>Descargar HTML</b> y me lo mandas para publicarlo.</p>
+  </div>
+
+  <div id="sel" class="hidden">
+    <h2>Seleccionado</h2>
+    <div class="sel-name" id="sel-name"></div>
+  </div>
+
+  <div id="p-text" class="field hidden">
+    <label>Texto</label>
+    <textarea id="f-text"></textarea>
+  </div>
+
+  <div id="p-style" class="hidden" style="display:flex;flex-direction:column;gap:12px">
+    <div class="row">
+      <div class="field"><label>Color de texto</label><input type="color" id="f-color"></div>
+      <div class="field"><label>Fondo</label><input type="color" id="f-bg"></div>
+    </div>
+    <div class="field"><label>Tamaño de letra: <span id="f-size-v"></span></label><input type="range" id="f-size" min="10" max="120" step="1"></div>
+    <div class="field"><label>Grosor</label><select id="f-weight"><option value="">(igual)</option><option value="400">Normal</option><option value="600">Semi</option><option value="700">Negrita</option></select></div>
+    <div class="field"><label>Alineación</label><select id="f-align"><option value="">(igual)</option><option value="left">Izquierda</option><option value="center">Centro</option><option value="right">Derecha</option></select></div>
+    <div class="field"><label>Espacio interior: <span id="f-pad-v"></span></label><input type="range" id="f-pad" min="0" max="120" step="2"></div>
+    <div class="field"><label>Bordes redondeados: <span id="f-radius-v"></span></label><input type="range" id="f-radius" min="0" max="80" step="1"></div>
+    <div class="field"><label>Enlace (href)</label><input type="text" id="f-href" placeholder="https://…"></div>
+    <div class="btns">
+      <button class="tool" id="b-hide">Ocultar</button>
+      <button class="tool" id="b-dup">Duplicar</button>
+      <button class="tool" id="b-up">↑ Subir</button>
+      <button class="tool" id="b-down">↓ Bajar</button>
+    </div>
+  </div>
+
+  <div id="p-img" class="hidden" style="display:flex;flex-direction:column;gap:10px">
+    <h2>Cambiar foto</h2>
+    <div class="field"><label>Subir desde tu computador</label><input type="file" id="f-file" accept="image/*"></div>
+    <div class="field"><label>O elige una del sitio</label><div class="assets" id="assets"></div></div>
+  </div>
+
+  <div class="log" id="log">Sin cambios.</div>
+</aside>
+
+<script>
+const frame=document.getElementById('frame');
+let doc,win,selected=null,mode='select',history=[],dirty=0;
+const $=id=>document.getElementById(id);
+const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600)};
+const log=()=>{$('log').textContent=dirty?`${dirty} cambio(s) sin descargar.`:'Sin cambios.'};
+
+// fotos del sitio para el panel
+const SITE_IMAGES=['2024/11/01-home.jpg','2024/10/02-home.jpg','2024/10/11-home.jpg','2024/10/home-slider-1.png','2024/10/manos.jpg','2024/10/naranja.jpg','2024/10/02-shop-concept-1200x750-2.jpg','2024/10/HOLA.png','2024/10/aa.jpg','2024/10/yo.jpg','2024/10/ivan.jpg','2024/10/56-home.jpg','2024/10/04-home.jpg','2024/10/plam-1.jpg','2024/10/wyne.jpg','2024/10/19-home-1024x640-1.jpg','slider6/wyn4.jpeg','slider7/boca2.jpeg','slider7/mizner.jpeg','slider8/ave.jpeg','2024/10/google.jpg','2024/10/HBO.jpg','2024/10/moncler.jpg','2024/10/niki.jpg','2024/10/varios.jpg','2024/10/video-watermelon-thumb.jpg','2024/10/video-strawberry-thumb.jpg','2024/10/video-passion-fruit-thumb.jpg','2024/10/9-3.png','2024/10/gifcardok2-193x193-1.png'];
+$('assets').innerHTML=SITE_IMAGES.map(p=>`<img src="/wp-content/uploads/${p}" alt="" title="${p}">`).join('');
+$('assets').addEventListener('click',e=>{if(e.target.tagName==='IMG'&&selected){setImg(e.target.getAttribute('src'))}});
+
+// ---- cargar página en el iframe
+function hook(){
+  doc=frame.contentDocument;win=frame.contentWindow;
+  if(!doc||!doc.body)return;
+  const st=doc.createElement('style');st.id='__ed';
+  st.textContent=`
+    [data-ed-hover]{outline:2px dashed #C8AB37!important;outline-offset:2px;cursor:pointer}
+    [data-ed-sel]{outline:3px solid #C8AB37!important;outline-offset:2px;box-shadow:0 0 0 6px rgba(200,171,55,.25)!important}
+    [data-ed-move] *{cursor:move!important}
+    .pojo-a11y-toolbar-toggle,#pojo-a11y-toolbar{display:none!important}
+  `;
+  doc.head.appendChild(st);
+  // quitar animaciones de elementor que ocultan bloques hasta hacer scroll
+  doc.querySelectorAll('.elementor-invisible').forEach(e=>e.classList.remove('elementor-invisible'));
+  // bloquear navegación y formularios
+  doc.addEventListener('click',onClick,true);
+  doc.addEventListener('dblclick',onDbl,true);
+  doc.addEventListener('mouseover',e=>{if(mode!=='select')return;clearHover();const t=pick(e.target);if(t&&t!==selected)t.setAttribute('data-ed-hover','')},true);
+  doc.addEventListener('mouseout',clearHover,true);
+  doc.addEventListener('submit',e=>e.preventDefault(),true);
+  doc.addEventListener('input',e=>{if(e.target.isContentEditable){dirty++;log();if(e.target===selected)$('f-text').value=selected.innerText}},true);
+  doc.addEventListener('mousedown',onDown,true);
+  select(null);history=[];dirty=0;log();
+}
+frame.addEventListener('load',hook);
+
+const EDITABLE='h1,h2,h3,h4,h5,h6,p,a,button,img,span,li,figure,.elementor-widget,.elementor-column,section';
+function pick(el){
+  if(!el||el===doc.body||el===doc.documentElement)return null;
+  const w=el.closest('img,a,button,h1,h2,h3,h4,h5,h6,p,li');
+  if(w)return w;
+  return el.closest('.elementor-widget,.elementor-column,.elementor-section')||el;
+}
+function clearHover(){doc.querySelectorAll('[data-ed-hover]').forEach(e=>e.removeAttribute('data-ed-hover'))}
+function onClick(e){
+  const t=pick(e.target);
+  if(t&&!t.isContentEditable){e.preventDefault();e.stopPropagation()}
+  if(e.target.closest('a')&&!e.target.isContentEditable){e.preventDefault()}
+  if(mode==='select'&&t)select(t);
+}
+function onDbl(e){
+  const t=pick(e.target);
+  if(!t||t.tagName==='IMG')return;
+  e.preventDefault();e.stopPropagation();
+  snapshot();t.contentEditable='true';t.focus();select(t);toast('Escribe encima. Clic afuera para terminar.');
+}
+function select(el){
+  if(selected){selected.removeAttribute('data-ed-sel');if(selected.isContentEditable&&el!==selected)selected.contentEditable='false'}
+  selected=el;
+  $('sel').classList.toggle('hidden',!el);$('p-style').classList.toggle('hidden',!el);
+  $('p-text').classList.toggle('hidden',!el||el.tagName==='IMG'||el.children.length>3);
+  $('p-img').classList.toggle('hidden',!el||el.tagName!=='IMG');
+  if(!el)return;
+  el.setAttribute('data-ed-sel','');
+  const cs=win.getComputedStyle(el);
+  $('sel-name').textContent=`<${el.tagName.toLowerCase()}> ${el.className&&typeof el.className==='string'?'.'+el.className.split(' ').filter(c=>c&&!c.startsWith('elementor-element-')).slice(0,2).join('.'):''}`;
+  $('f-text').value=el.tagName==='IMG'?'':el.innerText;
+  $('f-color').value=rgb2hex(cs.color);$('f-bg').value=rgb2hex(cs.backgroundColor,'#ffffff');
+  $('f-size').value=parseInt(cs.fontSize)||16;$('f-size-v').textContent=$('f-size').value+'px';
+  $('f-weight').value='';$('f-align').value='';
+  $('f-pad').value=parseInt(cs.paddingTop)||0;$('f-pad-v').textContent=$('f-pad').value+'px';
+  $('f-radius').value=parseInt(cs.borderRadius)||0;$('f-radius-v').textContent=$('f-radius').value+'px';
+  $('f-href').value=el.tagName==='A'?el.getAttribute('href')||'':'';
+  $('f-href').parentElement.classList.toggle('hidden',el.tagName!=='A');
+}
+function rgb2hex(c,fb='#000000'){const m=c&&c.match(/\d+/g);if(!m||(m[3]!==undefined&&+m[3]===0))return fb;return '#'+m.slice(0,3).map(n=>(+n).toString(16).padStart(2,'0')).join('')}
+
+// ---- historial
+function snapshot(){history.push(doc.body.innerHTML);if(history.length>50)history.shift()}
+function change(fn){if(!selected)return;snapshot();fn();dirty++;log()}
+$('t-undo').onclick=()=>{if(!history.length)return toast('Nada que deshacer');const sel=selected;doc.body.innerHTML=history.pop();selected=null;select(null);dirty=Math.max(0,dirty-1);log();doc.querySelectorAll('.elementor-invisible').forEach(e=>e.classList.remove('elementor-invisible'))};
+$('t-reset').onclick=()=>{if(confirm('¿Volver a la página original y perder los cambios?'))frame.contentWindow.location.reload()};
+
+// ---- panel
+$('f-text').addEventListener('input',e=>{if(!selected)return;if(!$('f-text').dataset.snap){snapshot();$('f-text').dataset.snap=1}selected.innerText=e.target.value;dirty++;log()});
+$('f-text').addEventListener('blur',()=>delete $('f-text').dataset.snap);
+$('f-color').oninput=e=>change(()=>selected.style.setProperty('color',e.target.value,'important'));
+$('f-bg').oninput=e=>change(()=>selected.style.setProperty('background-color',e.target.value,'important'));
+$('f-size').oninput=e=>{$('f-size-v').textContent=e.target.value+'px';change(()=>selected.style.setProperty('font-size',e.target.value+'px','important'))};
+$('f-weight').onchange=e=>change(()=>selected.style.setProperty('font-weight',e.target.value,'important'));
+$('f-align').onchange=e=>change(()=>selected.style.setProperty('text-align',e.target.value,'important'));
+$('f-pad').oninput=e=>{$('f-pad-v').textContent=e.target.value+'px';change(()=>selected.style.setProperty('padding',e.target.value+'px','important'))};
+$('f-radius').oninput=e=>{$('f-radius-v').textContent=e.target.value+'px';change(()=>{selected.style.setProperty('border-radius',e.target.value+'px','important');selected.style.overflow='hidden'})};
+$('f-href').onchange=e=>change(()=>selected.setAttribute('href',e.target.value));
+$('b-hide').onclick=()=>change(()=>{selected.style.display='none';select(null)});
+$('b-dup').onclick=()=>change(()=>{const c=selected.cloneNode(true);c.removeAttribute('data-ed-sel');selected.after(c);select(c)});
+$('b-up').onclick=()=>change(()=>{const p=selected.previousElementSibling;if(p)p.before(selected)});
+$('b-down').onclick=()=>change(()=>{const n=selected.nextElementSibling;if(n)n.after(selected)});
+function setImg(src){change(()=>{selected.src=src;selected.removeAttribute('srcset');selected.removeAttribute('data-src');toast('Foto cambiada')})}
+$('f-file').onchange=e=>{const f=e.target.files[0];if(!f||!selected)return;const r=new FileReader();r.onload=()=>setImg(r.result);r.readAsDataURL(f)};
+
+// ---- mover arrastrando
+$('t-select').onclick=()=>setMode('select');$('t-move').onclick=()=>setMode('move');
+function setMode(m){mode=m;$('t-select').classList.toggle('on',m==='select');$('t-move').classList.toggle('on',m==='move');doc&&doc.body.toggleAttribute('data-ed-move',m==='move');clearHover()}
+let drag=null;
+function onDown(e){
+  if(mode!=='move')return;const t=pick(e.target);if(!t)return;
+  e.preventDefault();e.stopPropagation();select(t);snapshot();
+  const cs=win.getComputedStyle(t);const pos=cs.position==='static'?'relative':cs.position;t.style.position=pos;
+  drag={t,x:e.clientX,y:e.clientY,l:parseFloat(cs.left)||0,tp:parseFloat(cs.top)||0};
+  const mv=ev=>{drag.t.style.left=(drag.l+ev.clientX-drag.x)+'px';drag.t.style.top=(drag.tp+ev.clientY-drag.y)+'px'};
+  const up=()=>{doc.removeEventListener('mousemove',mv);doc.removeEventListener('mouseup',up);drag=null;dirty++;log()};
+  doc.addEventListener('mousemove',mv);doc.addEventListener('mouseup',up);
+}
+
+// ---- páginas y dispositivos
+$('pages').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(dirty&&!confirm('Tienes cambios sin descargar. ¿Cambiar de página igual?'))return;document.querySelectorAll('#pages button').forEach(x=>x.classList.toggle('on',x===b));frame.src=b.dataset.page});
+document.querySelector('.devices').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('.devices button').forEach(x=>x.classList.toggle('on',x===b));frame.style.width=b.dataset.w;frame.style.margin='0 auto';frame.style.display='block'});
+
+// ---- descargar
+$('t-save').onclick=()=>{
+  if(!doc)return;
+  const clone=doc.documentElement.cloneNode(true);
+  clone.querySelectorAll('#__ed,[data-ed-hover],[data-ed-sel]').forEach(e=>{if(e.id==='__ed')e.remove();else{e.removeAttribute('data-ed-hover');e.removeAttribute('data-ed-sel')}});
+  clone.querySelectorAll('[contenteditable]').forEach(e=>e.removeAttribute('contenteditable'));
+  const html='<!DOCTYPE html>\n'+clone.outerHTML;
+  const page=document.querySelector('#pages button.on').dataset.page.replace(/^\//,'').replace(/\/index\.html$/,'')||'home';
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download=`cielito-${page.replace(/\//g,'-')}.html`;a.click();
+  dirty=0;log();toast('Descargado. Mándame ese archivo para publicarlo.');
+};
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();$('t-undo').click()}});
+</script>
+</body>
+</html>
